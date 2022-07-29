@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { userAction } from '../redux/actions';
 
 class Login extends React.Component {
@@ -22,7 +21,6 @@ class Login extends React.Component {
     }, () => {
       this.handleButton();
     });
-    console.log(this.state)
   }
 
   handleButton = () => {

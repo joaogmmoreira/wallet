@@ -17,9 +17,3 @@ const user = (state = INITIAL_STATE, action) => {
 };
 
 export default user;
-
-// {
-//   user: {
-//     email: '', // string que armazena o email da pessoa usuária
-//   }
-// }
