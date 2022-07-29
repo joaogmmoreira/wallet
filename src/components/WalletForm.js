@@ -12,7 +12,7 @@ export default class WalletForm extends Component {
             <input
               data-testid="value-input"
               type="number"
-              onChange={ this.onInputChange }
+              // onChange={ this.onInputChange }
               // value={  }
               name="value-input"
               id="value-input"
@@ -23,7 +23,7 @@ export default class WalletForm extends Component {
             <input
               data-testid="description-input"
               type="text"
-              onChange={ this.onInputChange }
+              // onChange={ this.onInputChange }
               // value={  }
               name="description-input"
               id="description-input"
@@ -35,7 +35,7 @@ export default class WalletForm extends Component {
             <select
               data-testid="method-input"
               type="text"
-              onChange={ this.onInputChange }
+              // onChange={ this.onInputChange }
               name="method-input"
               id="method-input"
             >
@@ -60,6 +60,12 @@ export default class WalletForm extends Component {
               <option value="Saúde">Saúde</option>
             </select>
           </label>
+          <button
+            type="button"
+            onClick={ () => {} }
+          >
+            Adicionar despesa
+          </button>
         </form>
 
       </div>

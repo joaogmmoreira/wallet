@@ -18,7 +18,6 @@ class SelectComponent extends Component {
         <select
           data-testid="currency-input"
           type="text"
-          onChange={ this.onInputChange }
           name="currency-input"
           id="currency-input"
         >
