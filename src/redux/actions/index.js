@@ -33,3 +33,8 @@ export function fetchCurrencies() {
     }
   };
 }
+
+export const savingState = (expenses) => ({
+  type: 'SAVE_EXPENSES_TO_STATE_APP',
+  expenses,
+});

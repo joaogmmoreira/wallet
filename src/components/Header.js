@@ -7,20 +7,39 @@ class Header extends Component {
     super();
 
     this.state = {
-      totalField: 0,
+      // totalField: 0,
       currencyField: 'BRL',
     };
   }
 
   render() {
-    const { email } = this.props;
-    const { totalField, currencyField } = this.state;
+    const { email, expenses } = this.props;
+    const { currencyField } = this.state;
+
+    let valueToBRL = 0;
+
+    expenses.forEach((element) => {
+      const { value, currency, exchangeRates } = element;
+      valueToBRL += parseFloat(value)
+      * parseFloat(exchangeRates[currency].ask);
+
+      // this.setState((prevState) => ({
+      //   totalField: prevState.totalField + valueToBRL.toFixed(2),
+      // }));
+
+      // console.log(valueToBRL.toFixed(2));
+
+      // return valueToBRL.toFixed(2);
+    });
+
     return (
       <div>
         <div>
           <h4 data-testid="total-field">
-            { totalField }
+            { valueToBRL.toFixed(2) }
           </h4>
+        </div>
+        <div>
           <h4 data-testid="header-currency-field">
             { currencyField }
           </h4>
@@ -35,8 +54,14 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = (store) => ({
+  currencies: store.wallet.currencies,
+  expenses: store.wallet.expenses,
+});
+
 Header.propTypes = {
   email: propTypes.string.isRequired,
+  expenses: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
-export default connect()(Header);
+export default connect(mapStateToProps)(Header);

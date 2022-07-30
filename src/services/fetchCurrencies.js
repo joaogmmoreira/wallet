@@ -6,6 +6,8 @@ const getCurrencies = async () => {
   const currencyCode = Object.keys(json).filter((element) => element !== 'USDT');
 
   return currencyCode;
+
+  // return response.ok ? Promise.resolve(json) : Promise.reject(json);
 };
 
 export default getCurrencies;

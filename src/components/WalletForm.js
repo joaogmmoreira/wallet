@@ -1,8 +1,81 @@
 import React, { Component } from 'react';
-import SelectComponent from './SelectComponent';
+import propTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrencies, savingState } from '../redux/actions';
+// import store from '../redux/store';
 
-export default class WalletForm extends Component {
+class WalletForm extends Component {
+  constructor() {
+    super();
+
+    const ALIMENTAÇÃO = 'Alimentação';
+
+    this.state = {
+      id: 0,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: ALIMENTAÇÃO,
+      exchangeRates: {},
+    };
+  }
+
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    // console.log(currencies);
+    getCurrencies();
+  }
+
+  onInputChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    }, () => {
+      // console.log(this.state);
+    });
+  }
+
+  fetchCurrenciesToState = async () => {
+    const CURRENCIES_ENDPOINT = 'https://economia.awesomeapi.com.br/json/all';
+    const response = await fetch(`${CURRENCIES_ENDPOINT}`);
+    const json = await response.json();
+    const resolve = Promise.resolve(json);
+
+    return resolve;
+  }
+
+  saveExpensesInfo = async () => {
+    const { dispatchExpenses, expenses } = this.props;
+    const exchangeRates = await this.fetchCurrenciesToState();
+    // console.log(store.getState());
+
+    const newId = expenses.length;
+
+    this.setState((prevState) => ({
+      id: newId,
+      exchangeRates,
+    }), () => dispatchExpenses(this.state));
+
+    const ALIMENTAÇÃO = 'Alimentação';
+
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: ALIMENTAÇÃO,
+    });
+  }
+
   render() {
+    const { currencies } = this.props;
+
+    const {
+      value,
+      description,
+    } = this.state;
+
     return (
       <div>
         Despesas
@@ -12,9 +85,9 @@ export default class WalletForm extends Component {
             <input
               data-testid="value-input"
               type="number"
-              // onChange={ this.onInputChange }
-              // value={  }
-              name="value-input"
+              onChange={ this.onInputChange }
+              value={ value }
+              name="value"
               id="value-input"
             />
           </label>
@@ -23,20 +96,36 @@ export default class WalletForm extends Component {
             <input
               data-testid="description-input"
               type="text"
-              // onChange={ this.onInputChange }
-              // value={  }
-              name="description-input"
+              onChange={ this.onInputChange }
+              value={ description }
+              name="description"
               id="description-input"
             />
           </label>
-          <SelectComponent />
+          <label htmlFor="currency-input">
+            Moeda:
+            <select
+              data-testid="currency-input"
+              onChange={ this.onInputChange }
+              name="currency"
+              id="currency-input"
+            >
+              {currencies.map((element) => (
+                <option
+                  key={ element }
+                  value={ element }
+                >
+                  {element}
+                </option>
+              ))}
+            </select>
+          </label>
           <label htmlFor="method-input">
             Método de Pagamento:
             <select
               data-testid="method-input"
-              type="text"
-              // onChange={ this.onInputChange }
-              name="method-input"
+              onChange={ this.onInputChange }
+              name="method"
               id="method-input"
             >
               <option value="Dinheiro">Dinheiro</option>
@@ -48,9 +137,8 @@ export default class WalletForm extends Component {
             Categoria:
             <select
               data-testid="tag-input"
-              type="text"
               onChange={ this.onInputChange }
-              name="tag-input"
+              name="tag"
               id="tag-input"
             >
               <option value="Alimentação">Alimentação</option>
@@ -62,7 +150,7 @@ export default class WalletForm extends Component {
           </label>
           <button
             type="button"
-            onClick={ () => {} }
+            onClick={ this.saveExpensesInfo }
           >
             Adicionar despesa
           </button>
@@ -72,3 +160,21 @@ export default class WalletForm extends Component {
     );
   }
 }
+
+const mapStateToProps = (store) => ({
+  currencies: store.wallet.currencies,
+  expenses: store.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+  dispatchExpenses: (expenses) => dispatch(savingState(expenses)),
+});
+
+WalletForm.propTypes = {
+  getCurrencies: propTypes.func.isRequired,
+  currencies: propTypes.objectOf(propTypes.object).isRequired,
+  dispatchExpenses: propTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

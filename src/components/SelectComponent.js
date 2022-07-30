@@ -6,7 +6,7 @@ import { fetchCurrencies } from '../redux/actions';
 class SelectComponent extends Component {
   componentDidMount() {
     const { getCurrencies } = this.props;
-    console.log(getCurrencies());
+    // console.log(currencies);
     getCurrencies();
   }
 
@@ -18,10 +18,11 @@ class SelectComponent extends Component {
         <select
           data-testid="currency-input"
           type="text"
-          name="currency-input"
+          name="currency"
           id="currency-input"
+          value={ currency }
         >
-          {currencies.map((element) => (
+          {Object.keys(currencies).map((element) => (
             <option
               key={ element }
               value={ element }
@@ -45,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 SelectComponent.propTypes = {
   getCurrencies: propTypes.func.isRequired,
-  currencies: propTypes.arrayOf(propTypes.string).isRequired,
+  currencies: propTypes.objectOf(propTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectComponent);

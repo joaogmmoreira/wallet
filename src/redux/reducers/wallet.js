@@ -26,6 +26,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       error: action.error,
       // loading: false,
     };
+
+  case 'SAVE_EXPENSES_TO_STATE_APP':
+    return {
+      ...state,
+      expenses: [...state.expenses, action.expenses],
+      // loading: false,
+    };
   default:
     return state;
   }
