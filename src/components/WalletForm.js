@@ -8,15 +8,13 @@ class WalletForm extends Component {
   constructor() {
     super();
 
-    const ALIMENTAÇÃO = 'Alimentação';
-
     this.state = {
       id: 0,
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: ALIMENTAÇÃO,
+      tag: 'Alimentação',
       exchangeRates: {},
     };
   }
@@ -52,12 +50,12 @@ class WalletForm extends Component {
 
     const newId = expenses.length;
 
-    this.setState((prevState) => ({
+    // const ALIMENTAÇÃO = 'Alimentação';
+
+    this.setState(({
       id: newId,
       exchangeRates,
     }), () => dispatchExpenses(this.state));
-
-    const ALIMENTAÇÃO = 'Alimentação';
 
     this.setState({
       value: '',
@@ -175,6 +173,7 @@ WalletForm.propTypes = {
   getCurrencies: propTypes.func.isRequired,
   currencies: propTypes.objectOf(propTypes.object).isRequired,
   dispatchExpenses: propTypes.func.isRequired,
+  expenses: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
