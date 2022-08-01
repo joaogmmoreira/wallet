@@ -11,7 +11,6 @@ class Wallet extends React.Component {
     return (
       <>
         <Header email={ email } />
-        <div>TrybeWallet</div>
         <WalletForm />
         <Table />
       </>
