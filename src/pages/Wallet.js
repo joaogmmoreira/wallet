@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   render() {
@@ -12,6 +13,7 @@ class Wallet extends React.Component {
         <Header email={ email } />
         <div>TrybeWallet</div>
         <WalletForm />
+        <Table />
       </>
     );
   }

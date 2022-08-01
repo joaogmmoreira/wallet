@@ -169,7 +169,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 WalletForm.propTypes = {
   getCurrencies: propTypes.func.isRequired,
-  currencies: propTypes.objectOf(propTypes.object).isRequired,
+  currencies: propTypes.arrayOf(propTypes.string).isRequired,
   dispatchExpenses: propTypes.func.isRequired,
   expenses: propTypes.arrayOf(propTypes.object).isRequired,
 };
