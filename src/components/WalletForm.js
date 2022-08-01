@@ -50,8 +50,6 @@ class WalletForm extends Component {
 
     const newId = expenses.length;
 
-    // const ALIMENTAÇÃO = 'Alimentação';
-
     this.setState(({
       id: newId,
       exchangeRates,
@@ -62,7 +60,7 @@ class WalletForm extends Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: ALIMENTAÇÃO,
+      tag: '',
     });
   }
 
