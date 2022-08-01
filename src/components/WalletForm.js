@@ -145,6 +145,7 @@ class WalletForm extends Component {
             </select>
           </label>
           <button
+            // data-testid="btn-add-input"
             type="button"
             onClick={ this.saveExpensesInfo }
           >

@@ -38,6 +38,15 @@ class Table extends Component {
             Excluir
           </button>
         </td>
+        <td>
+          <button
+            data-testid="edit-btn"
+            type="button"
+            // onClick={ () => editExpense(id) }
+          >
+            Editar despesa
+          </button>
+        </td>
       </tr>
     );
   }
@@ -73,6 +82,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExpense: (id) => dispatch(deleteExpenseAction(id)),
+  // editExpense: (id) => dispatch(editExpenseAction(id)),
 });
 
 Table.propTypes = {
